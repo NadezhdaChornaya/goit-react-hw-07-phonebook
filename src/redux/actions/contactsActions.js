@@ -7,8 +7,10 @@ export const addContactActionCreator = createAction("ADD_NEW_CONTACT", data => {
     }
 })
 
+export const getContacts = createAction("GET_CONTACTS");
+
 export const deleteContactActionCreator = createAction("DELETE_NEW_CONTACT", e => {
-    const id = e.target.dataset.id;
+    const id = e.target.id;
     return {
         payload: id
     }

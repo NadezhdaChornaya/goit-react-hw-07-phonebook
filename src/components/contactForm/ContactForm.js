@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import { CSSTransition } from 'react-transition-group';
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 import { FormWrapper } from './styledForm';
-import { connect } from 'react-redux';
-import { addContactActionCreator, alertContactsActionCreater } from '../../redux/actions/contactsActions';
+// import { connect } from 'react-redux';
+import { alertContactsActionCreater } from '../../redux/actions/contactsActions';
 import Notification from '../notifications/Notification'
 import { addNewContactOperation } from '../../redux/operations/contactsOperations';
 // import { addContactActionCreator } from '../../redux/redusers/contactsReducer'
@@ -109,7 +109,7 @@ const ContactForm = () => {
 
 export default ContactForm;
 
-ContactForm.propTypes = {
-    addContactActionCreator: PropTypes.func.isRequired,
-    alertContactsActionCreater: PropTypes.func.isRequired,
-}
+// ContactForm.propTypes = {
+//     addContactActionCreator: PropTypes.func.isRequired,
+//     alertContactsActionCreater: PropTypes.func.isRequired,
+// }

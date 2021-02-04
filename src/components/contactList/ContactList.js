@@ -1,10 +1,12 @@
 import React from 'react';
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 import { TransitionGroup } from 'react-transition-group';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from "react-redux";
+// import { connect } from 'react-redux';
 import { Div } from './styledList';
 import transition from 'styled-transition-group';
-import { deleteContactActionCreator } from '../../redux/actions/contactsActions';
+// import { deleteContactActionCreator } from '../../redux/actions/contactsActions';
+import { deleteContactOperation } from '../../redux/operations/contactsOperations';
 
 const LI = transition.li.attrs({
     mountOnEnter: true,
@@ -23,7 +25,14 @@ const LI = transition.li.attrs({
 }
 `
 
-const ContactList = ({ contacts, deleteContactActionCreator }) => {
+const ContactList = () => {
+    const contacts = useSelector((state) => state.contacts.items.filter(item => item.name.toLowerCase().includes(state.contacts.filter.toLowerCase())))
+    const dispatch = useDispatch();
+
+    const handleDeleteContact = (e) => {
+        const id = e.target.id;
+        dispatch(deleteContactOperation(id));
+    };
     return (
 
         <Div>
@@ -32,7 +41,7 @@ const ContactList = ({ contacts, deleteContactActionCreator }) => {
                     return (
                         <LI key={id} timeout={250} className="itemContact">
                             {`${name}:  ${number}`}
-                            <button className="button" type="button" data-id={id} onClick={deleteContactActionCreator}>Delete</button>
+                            <button className="button" type="button" id={id} onClick={handleDeleteContact}>Delete</button>
                         </LI>
                     )
                 })}
@@ -44,30 +53,29 @@ const ContactList = ({ contacts, deleteContactActionCreator }) => {
     )
 }
 
-const mapStateToPerops = (state) => {
-    console.log(state)
-    return {
-        contacts: state.contacts.items.filter(item => item.name.toLowerCase().includes(state.contacts.filter.toLowerCase())),
-    }
-}
+// const mapStateToPerops = (state) => {
+//     return {
+//         contacts: state.contacts.items.filter(item => item.name.toLowerCase().includes(state.contacts.filter.toLowerCase())),
+//     }
+// }
 
-const mapDispatchToProps = (dispatch) => {
-    return {
+// const mapDispatchToProps = (dispatch) => {
+//     return {
 
-        deleteContactActionCreator: (data) => {
-            dispatch(deleteContactActionCreator(data))
-        },
-    }
-}
+//         deleteContactActionCreator: (data) => {
+//             dispatch(deleteContactActionCreator(data))
+//         },
+//     }
+// }
 
 
-export default connect(mapStateToPerops, mapDispatchToProps)(ContactList)
+export default ContactList
 
-ContactList.propTypes = {
-    deleteContactActionCreator: PropTypes.func.isRequired,
-    contacts: PropTypes.arrayOf(PropTypes.shape({
-        id: PropTypes.string.isRequired,
-        name: PropTypes.string.isRequired,
-        number: PropTypes.string.isRequired,
-    })),
-}
+// ContactList.propTypes = {
+//     deleteContactActionCreator: PropTypes.func.isRequired,
+//     contacts: PropTypes.arrayOf(PropTypes.shape({
+//         id: PropTypes.string.isRequired,
+//         name: PropTypes.string.isRequired,
+//         number: PropTypes.string.isRequired,
+//     })),
+// }

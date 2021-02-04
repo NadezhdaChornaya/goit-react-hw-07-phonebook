@@ -1,11 +1,13 @@
 // import { createReducer } from '@reduxjs/toolkit';
 // import { combineReducers } from "redux";
-import { addContactActionCreator, deleteContactActionCreator, filterContactsActionCreater, alertContactsActionCreater, setLoading, setError } from '../actions/contactsActions';
+import { addContactActionCreator, deleteContactActionCreator, filterContactsActionCreater, alertContactsActionCreater, setLoading, setError, getContacts } from '../actions/contactsActions';
 
 const contactsReducer = (state = { ...initialState }, { type, payload }) => {
     switch (type) {
         case addContactActionCreator.type:
             return { ...state, items: [...state.items, payload] };
+        case getContacts.type:
+            return { ...state, items: [...payload] };
         case deleteContactActionCreator.type:
             return { ...state, items: [...state.items.filter((item) => item.id !== payload)] };
         case filterContactsActionCreater.type:
