@@ -1,12 +1,15 @@
 import React from 'react';
-// import PropTypes from "prop-types";
 import { TransitionGroup } from 'react-transition-group';
 import { useSelector, useDispatch } from "react-redux";
-// import { connect } from 'react-redux';
+
 import { Div } from './styledList';
 import transition from 'styled-transition-group';
-// import { deleteContactActionCreator } from '../../redux/actions/contactsActions';
+
 import { deleteContactOperation } from '../../redux/operations/contactsOperations';
+import contactsSelectors from '../../redux/selectors/contactsSelectors';
+// import PropTypes from "prop-types";
+// import { connect } from 'react-redux';
+// import { deleteContactActionCreator } from '../../redux/actions/contactsActions';
 
 const LI = transition.li.attrs({
     mountOnEnter: true,
@@ -26,7 +29,7 @@ const LI = transition.li.attrs({
 `
 
 const ContactList = () => {
-    const contacts = useSelector((state) => state.contacts.items.filter(item => item.name.toLowerCase().includes(state.contacts.filter.toLowerCase())))
+    const contacts = useSelector((state) => contactsSelectors.getFilterSelector(state))
     const dispatch = useDispatch();
 
     const handleDeleteContact = (e) => {
@@ -53,6 +56,8 @@ const ContactList = () => {
     )
 }
 
+export default ContactList
+
 // const mapStateToPerops = (state) => {
 //     return {
 //         contacts: state.contacts.items.filter(item => item.name.toLowerCase().includes(state.contacts.filter.toLowerCase())),
@@ -69,7 +74,7 @@ const ContactList = () => {
 // }
 
 
-export default ContactList
+
 
 // ContactList.propTypes = {
 //     deleteContactActionCreator: PropTypes.func.isRequired,

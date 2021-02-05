@@ -1,20 +1,11 @@
-import { v4 as uuidv4 } from 'uuid';
+
 import { createAction } from '@reduxjs/toolkit';
 
-export const addContactActionCreator = createAction("ADD_NEW_CONTACT", data => {
-    return {
-        payload: { ...data, id: uuidv4() }
-    }
-})
+export const addContactActionCreator = createAction("ADD_NEW_CONTACT")
 
 export const getContacts = createAction("GET_CONTACTS");
 
-export const deleteContactActionCreator = createAction("DELETE_NEW_CONTACT", e => {
-    const id = e.target.id;
-    return {
-        payload: id
-    }
-})
+export const deleteContactActionCreator = createAction("DELETE_NEW_CONTACT")
 
 export const filterContactsActionCreater = createAction("FILTER_CONTACT", e => {
     const { value } = e.target;
@@ -29,8 +20,7 @@ export const setLoading = createAction("LOADING_CONTACT");
 
 export const setError = createAction("SET_ERROR");
 
-// export const setLoading = () => ({ type: LOADING_CONTACT });
-// export const setError = (payload) => ({ type: SETERROR, payload });
+
 
 
 

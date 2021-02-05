@@ -1,19 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import { CSSTransition } from 'react-transition-group';
-// import PropTypes from "prop-types";
+
 import { FormWrapper } from './styledForm';
-// import { connect } from 'react-redux';
 import { alertContactsActionCreater } from '../../redux/actions/contactsActions';
 import Notification from '../notifications/Notification'
 import { addNewContactOperation } from '../../redux/operations/contactsOperations';
+import contactsSelectors from '../../redux/selectors/contactsSelectors';
 // import { addContactActionCreator } from '../../redux/redusers/contactsReducer'
+// import PropTypes from "prop-types";
+// import { connect } from 'react-redux';
 
 
 const ContactForm = () => {
-    const contacts = useSelector((state) => state.contacts.items)
-    const text = useSelector((state) => state.contacts.text)
-    const isLoading = useSelector((state) => state.contacts.isLoading);
+    const contacts = useSelector((state) => contactsSelectors.getContactsSelector(state))
+    const text = useSelector((state) => contactsSelectors.getTextAlertSelector(state))
+    const isLoading = useSelector((state) => contactsSelectors.getLoadingSelector(state));
     const dispatch = useDispatch();
     const [state, setState] = useState({
         name: '',
@@ -23,8 +25,8 @@ const ContactForm = () => {
         if (text) {
             setTimeout(() => { dispatch(alertContactsActionCreater('')) }, 2000)
         }
-        //eslint-disable-next-line
-    }, [])
+
+    }, [text, dispatch])
 
     const hadlleSubmit = e => {
         e.preventDefault();
@@ -87,6 +89,7 @@ const ContactForm = () => {
     )
 }
 
+export default ContactForm;
 
 // const mapStateToProps = (state) => {
 //     return {
@@ -107,7 +110,7 @@ const ContactForm = () => {
 // };
 
 
-export default ContactForm;
+
 
 // ContactForm.propTypes = {
 //     addContactActionCreator: PropTypes.func.isRequired,

@@ -4,7 +4,7 @@ import { addContactActionCreator, deleteContactActionCreator, setLoading, setErr
 export const addNewContactOperation = (contact) => (dispatch) => {
     dispatch(setLoading())
     axios.post(
-        `https://redux-hm-07-default-rtdb.firebaseio.com/contacts.json`,
+        `${process.env.REACT_APP_BASE_URL}/contacts.json`,
         contact
     )
         .then(response => dispatch(addContactActionCreator({ ...contact, id: response.data.name })))
@@ -15,7 +15,7 @@ export const addNewContactOperation = (contact) => (dispatch) => {
 export const getContactsOperation = () => (dispatch) => {
     dispatch(setLoading());
     axios.get(
-        `https://redux-hm-07-default-rtdb.firebaseio.com/contacts.json`
+        `${process.env.REACT_APP_BASE_URL}/contacts.json`
     )
         .then(response => {
             dispatch(getContacts(Object.keys(response.data).map((key) => ({
@@ -29,7 +29,7 @@ export const getContactsOperation = () => (dispatch) => {
 
 export const deleteContactOperation = (id) => (dispatch) => {
     dispatch(setLoading());
-    axios.delete(`https://redux-hm-07-default-rtdb.firebaseio.com/contacts/${id}.json`)
+    axios.delete(`${process.env.REACT_APP_BASE_URL}/contacts/${id}.json`)
         .then(response => dispatch(deleteContactActionCreator(id)))
         .catch(error => dispatch(setError(error)))
         .finally(dispatch(setLoading()))
